@@ -124,6 +124,9 @@ function querySendDetails(){
 print_r(Dysms::querySendDetails("LTAIB06DdiT43dCr","fSKKE2QdrD5dnPI9hWPyBUM23KlDIs",$params));
 }
 
+
 sendsms();
+
 //sendBatchSms();
+
 //querySendDetails();
