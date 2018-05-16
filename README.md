@@ -32,6 +32,7 @@ function check(){
 }
 
 /***************消息发送**************/
+
 function sendsms(){
 
     $params = array ();
@@ -63,6 +64,7 @@ function sendsms(){
 
 
 /***************批量发送短信**************/
+
 function sendBatchSms(){
 
     $params = array ();
@@ -100,6 +102,7 @@ function sendBatchSms(){
 
 
 /***************短信发送记录查询**************/
+
 function querySendDetails(){
 
     $params = array ();
@@ -120,6 +123,7 @@ function querySendDetails(){
 
 print_r(Dysms::querySendDetails("LTAIB06DdiT43dCr","fSKKE2QdrD5dnPI9hWPyBUM23KlDIs",$params));
 }
+
 sendsms();
 //sendBatchSms();
 //querySendDetails();
