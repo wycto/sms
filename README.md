@@ -1,6 +1,20 @@
 # sms
 一个PHP的第三方短信服务接口类库
 
+#版本 0.1.0 上架：
+由原来的静态调用传递大量参数，改为对象调用，设置参数
+
+$dysms = new Dysms("LTAIB06ddiT43dCr","fSKKE2QdrI5dndI9hWPyBUM23KlDIs");
+$dysms->setSignName('wcyto');
+$dysms->setTemplateCode('SMS_135050063');
+$dysms->setTemplateParam(array('code'=>123654));
+$dysms->setPhoneNumbers('15008501308');
+$re = $dysms->sendOne();
+
+调用实例请参考 test里面的index文件
+
+
+
 版本 0.0.1上架  阿里云通讯，阿里云短信服务
 
 #阿里云-云通信-短信服务 使用方法如下：

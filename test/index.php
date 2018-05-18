@@ -37,7 +37,7 @@ function sendsms(){
     $params["SignName"] = "wycto";
 
     // fixme 必填: 短信模板Code，应严格按"模板CODE"填写, 请参考: https://dysms.console.aliyun.com/dysms.htm#/develop/template
-    $params["TemplateCode"] = "SMS_136009060";
+    $params["TemplateCode"] = "SMS_1360d9060";
 
     // fixme 可选: 设置模板参数, 假如模板中存在变量需要替换则为必填项
     $params['TemplateParam'] = array (
@@ -52,7 +52,7 @@ function sendsms(){
     $params['SmsUpExtendCode'] = "1234567";
 
     // 验证发送短信(SendSms)接口
-    print_r(Dysms::sendSms("LTDIBu6wdiT43dCr","fSKDEFQdrI5dnPF9hWPyBUM23KlDIs",$params));
+    print_r(Dysms::sendSms("LTDIBu6wdid43dCr","fSKDEFddrI5dnPF9hWPyBUM23KlDIs",$params));
 }
 
 
@@ -74,7 +74,7 @@ function sendBatchSms(){
     );
 
     // fixme 必填: 短信模板Code，应严格按"模板CODE"填写, 请参考: https://dysms.console.aliyun.com/dysms.htm#/develop/template
-    $params["TemplateCode"] = "SMS_1350D0060";
+    $params["TemplateCode"] = "SMS_1350Ddd60";
 
     // fixme 必填: 模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为
     // 友情提示:如果JSON中需要带换行符,请参照标准的JSON协议对换行符的要求,比如短信内容中包含\r\n的情况在JSON中需要表示成\\r\\n,否则会导致JSON在服务端解析失败
@@ -89,7 +89,7 @@ function sendBatchSms(){
     ),
     );
 
-    print_r(Dysms::sendBatchSms("LTAID06wdiT43dCr","fSKKE2DdrI5dnPI9hWPyBUM23KlDIs",$params));
+    print_r(Dysms::sendBatchSms("LTAID06wdiT43dCr","fSKKE2DdrIddnPI9hWPyBUM23KlDIs",$params));
 }
 
 
@@ -114,6 +114,14 @@ function querySendDetails(){
 
 print_r(Dysms::querySendDetails("LTAIB06DdiT43dCr","fSKKE2QdrD5dnPI9hWPyBUM23KlDIs",$params));
 }
-sendsms();
+//sendsms();
 //sendBatchSms();
 //querySendDetails();
+
+$dysms = new Dysms("LTAIB06ddiT43dCr","fSKKE2QdrI5dndI9hWPyBUM23KlDIs");
+$dysms->setSignName('wcyto');
+$dysms->setTemplateCode('SMS_135050063');
+$dysms->setTemplateParam(array('code'=>123654));
+$dysms->setPhoneNumbers('15008501308');
+$re = $dysms->sendOne();
+print_r($re);
