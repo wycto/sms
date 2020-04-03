@@ -64,8 +64,14 @@ class Dysms
         $this->accessKeySecret = $accessKeySecret;
     }
 
-    /********************/
+    /**
+     * 设置是否启用https
+     * @param unknown $Security
+     */
     function setSecurity($Security){
+    	if($Security!==true){
+    		$Security = false;
+    	}
         $this->security = $Security;
     }
 
@@ -73,7 +79,10 @@ class Dysms
         return $this->security;
     }
 
-    /********************/
+    /**
+     * 设置短信模板
+     * @param unknown $TemplateCode
+     */
     function setTemplateCode($TemplateCode){
         $this->TemplateCode = $TemplateCode;
         $this->params['TemplateCode'] = $TemplateCode;
@@ -83,7 +92,10 @@ class Dysms
         return $this->TemplateCode;
     }
 
-    /*********************/
+    /**
+     * 设置签名
+     * @param unknown $SignName
+     */
     function setSignName($SignName){
         $this->SignName = $SignName;
         $this->params['SignName'] = $SignName;
@@ -93,7 +105,10 @@ class Dysms
         return $this->SignName;
     }
 
-    /*********************/
+    /**
+     * 设置发送的手机号码
+     * @param unknown $mobile
+     */
     function setPhoneNumbers($mobile){
         $this->PhoneNumbers = $mobile;
         $this->params['PhoneNumbers'] = $mobile;
@@ -103,7 +118,10 @@ class Dysms
         return $this->PhoneNumbers;
     }
 
-    /*********************/
+    /**
+     * 设置模板参数
+     * @param unknown $array
+     */
     function setTemplateParam($array){
         $this->TemplateParam = $array;
         $this->params['TemplateParam'] = $array;
@@ -133,7 +151,10 @@ class Dysms
         return $this->SmsUpExtendCode;
     }
 
-    /*********************/
+    /**
+     * 批量发送-签名
+     * @param unknown $SignNameJson
+     */
     function setSignNameJson($SignNameJson){
         $this->SignNameJson = $SignNameJson;
         $this->params['SignNameJson'] = $SignNameJson;
@@ -143,7 +164,10 @@ class Dysms
         return $this->SignNameJson;
     }
 
-    /*********************/
+    /**
+     * 批量发送手机号
+     * @param array or json $PhoneNumberJson
+     */
     function setPhoneNumberJson($PhoneNumberJson){
         $this->PhoneNumberJson = $PhoneNumberJson;
         $this->params['PhoneNumberJson'] = $PhoneNumberJson;
@@ -153,7 +177,10 @@ class Dysms
         return $this->PhoneNumberJson;
     }
 
-    /*********************/
+    /**
+     * 批量发送-模板参数
+     * @param unknown $TemplateParamJson
+     */
     function setTemplateParamJson($TemplateParamJson){
         $this->TemplateParamJson = $TemplateParamJson;
         $this->params['TemplateParamJson'] = $TemplateParamJson;
@@ -173,7 +200,10 @@ class Dysms
         return $this->SmsUpExtendCodeJson;
     }
 
-    /*********************/
+    /**
+     * 设置查询手机号
+     * @param unknown $PhoneNumber
+     */
     function setPhoneNumber($PhoneNumber){
         $this->PhoneNumber = $PhoneNumber;
         $this->params['PhoneNumber'] = $PhoneNumber;
@@ -225,8 +255,7 @@ class Dysms
 
     /**
      * 发送短信
-     * @param unknown $accessKeyId 阿里云控制台的AccessKeyId
-     * @param unknown $accessKeySecret 阿里云控制台的AccessKeySecret
+     * @return string|Ambigous <boolean, stdClass>
      */
 	function sendOne() {
 
@@ -253,10 +282,7 @@ class Dysms
 
 	/**
 	 * 批量发送短信
-	 * @param unknown $accessKeyId 阿里云控制台的AccessKeyId
-	 * @param unknown $accessKeySecret 阿里云控制台的AccessKeySecret
-	 * @param unknown $params
-	 * @return unknown
+	 * @return string|unknown
 	 */
 	function sendMany() {
 
@@ -265,18 +291,22 @@ class Dysms
 	    $this->params["PhoneNumberJson"] = $this->to_json_encode($this->params["PhoneNumberJson"]);
 	    $this->params["SmsUpExtendCodeJson"] = $this->to_json_encode($this->params["SmsUpExtendCodeJson"]);
 
-	    // 此处可能会抛出异常，注意catch
-	    $content = $helper->request(
-	        $this->accessKeyId,
-	        $this->accessKeySecret,
-	        $this->domain,
-	        array_merge($this->params, array(
-	            "RegionId" => "cn-hangzhou",
-	            "Action" => "SendBatchSms",
-	            "Version" => "2017-05-25",
-	        )),
-	        $this->security
-	    );
+	    try {
+	    	// 此处可能会抛出异常，注意catch
+	    	$content = $helper->request(
+	    			$this->accessKeyId,
+	    			$this->accessKeySecret,
+	    			$this->domain,
+	    			array_merge($this->params, array(
+	    					"RegionId" => "cn-hangzhou",
+	    					"Action" => "SendBatchSms",
+	    					"Version" => "2017-05-25",
+	    			)),
+	    			$this->security
+	    	);
+	    }catch (Exception $ex){
+	    	return "短信发送异常，接口异常";
+	    }
 
 	    return $content;
 	}
